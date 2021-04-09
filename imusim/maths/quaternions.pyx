@@ -26,6 +26,7 @@ from imusim.maths import vectors, matrices
 import operator
 
 cimport numpy as np
+from functools import reduce
 
 cdef extern from "math.h":
     double sqrt(double x)
