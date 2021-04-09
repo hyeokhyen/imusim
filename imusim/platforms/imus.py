@@ -84,6 +84,29 @@ class IdealIMU(StandardIMU):
         self.radio = IdealRadio(self)
         StandardIMU.__init__(self, simulation, trajectory)
 
+class IdealIMUoffset(StandardIMU):
+    """
+    An IMU with idealised models for all components.
+    """
+
+    def __init__(self,
+        positionOffset=vector(0,0,0),
+        rotationOffset=Quaternion(1,0,0,0),
+        simulation=None, trajectory=None):
+        self.accelerometer = IdealAccelerometer(self,
+                                positionOffset=positionOffset, 
+                                rotationOffset=rotationOffset)
+        self.magnetometer = IdealMagnetometer(self,
+                                positionOffset=positionOffset, 
+                                rotationOffset=rotationOffset)
+        self.gyroscope = IdealGyroscope(self,
+                                positionOffset=positionOffset, 
+                                rotationOffset=rotationOffset)
+        self.adc = IdealADC(self)
+        self.timer = IdealTimer(self)
+        self.radio = IdealRadio(self)
+        StandardIMU.__init__(self, simulation, trajectory)
+
 class MagicIMU(StandardIMU):
     """
     An IMU with idealised components including a fictional gravity sensor.
